@@ -28,6 +28,9 @@
           "stylers": [
               {
                   "color": "#A51A1D"
+              }, 
+              {
+                  "visibility": "off"
               }
           ]
       },
