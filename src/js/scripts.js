@@ -5,80 +5,90 @@
   $(function () {
     var map_style = [
       {
-          "featureType": "administrative",
-          "elementType": "labels.text.fill",
+          "elementType": "labels.icon",
           "stylers": [
               {
-                  "color": "#444444"
+                  "color": "#365779"
+              },
+              {
+                  "visibility": "off"
               }
           ]
       },
       {
           "featureType": "landscape",
-          "elementType": "all",
           "stylers": [
               {
-                  "color": "#f2f2f2"
-              }
-          ]
-      },
-      {
-          "featureType": "poi",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "visibility": "off"
-              }
-          ]
-      },
-      {
-          "featureType": "road",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "saturation": -100
-              },
-              {
-                  "lightness": 45
+                  "color": "#042E58"
               }
           ]
       },
       {
           "featureType": "road.highway",
-          "elementType": "all",
           "stylers": [
               {
-                  "visibility": "simplified"
+                  "color": "#A51A1D"
+              }
+          ]
+      },
+      {
+          "featureType": "road.local",
+          "stylers": [
+              {
+                  "color": "#808080"
+              },
+              {
+                  "visibility": "off"
               }
           ]
       },
       {
           "featureType": "road.arterial",
-          "elementType": "labels.icon",
           "stylers": [
+              {
+                  "color": "#808080"
+              },
               {
                   "visibility": "off"
               }
           ]
+      },
+      {
+          "elementType": "labels.text",
+          "stylers": [
+              {
+                  "color": "#ffffff"
+              },
+              {
+                  "weight": 0.1
+              }
+          ]
+      },
+      {
+          "featureType": "poi",
+          "stylers": [
+              {
+                  "color": "#365779"
+              }
+          ]
+      },
+      {
+          "featureType": "poi",
+          "elementType": "labels.text",
+          "stylers": [
+              {
+                  "color": "#ffffff"
+              }
+          ]
+      },
+      {
+          "featureType": "water"
       },
       {
           "featureType": "transit",
-          "elementType": "all",
           "stylers": [
               {
-                  "visibility": "off"
-              }
-          ]
-      },
-      {
-          "featureType": "water",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "color": "#46bcec"
-              },
-              {
-                  "visibility": "on"
+                  "color": "#365779"
               }
           ]
       }
@@ -95,38 +105,35 @@
     map.data.loadGeoJson(src, null, function(features) {
       features.forEach(function(f) {
         var category = f.getProperty('Category');
-        console.log(category);
-        var strokeColor = '#FFFFFF';
         var fillColor = '#FFFFFF';
         switch(category) {
           case 'Walking':
-            strokeColor = 'red';
-            fillColor = 'red';
+            fillColor = '#009688';
             break;
           case 'On a train':
-            strokeColor = 'black';
-            fillColor = 'black';
+            fillColor = '#F44336';
             break;
           case 'On a bus':
-            strokeColor = 'Yellow';
-            fillColor = 'Yellow';
+            fillColor = '#FFC107';
             break;
           case 'Driving':
-            strokeColor = 'Green';
-            fillColor = 'Green';
+            fillColor = '#8BC34A';
             break;
           default:
             break;
         }
         map.data.overrideStyle(f, {
-          strokeColor: strokeColor,
+          strokeColor: fillColor,
           fillColor: fillColor,
+          strokeWidth: 5,
         }
       );
 
       });
     });
-
+    map.data.addListener('click', function(event) {
+      console.log(event.feature.getProperty('Category'));
+    });
   });
 
 })(jQuery, window, document);
