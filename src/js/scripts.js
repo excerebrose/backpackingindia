@@ -131,8 +131,15 @@
 
       });
     });
-    map.data.addListener('click', function(event) {
-      console.log(event.feature.getProperty('Category'));
+    var infowindow = new google.maps.InfoWindow();
+    map.data.addListener('mouseover', function(event) {
+      var heading = event.feature.getProperty("Category");
+      var begin = new Date(event.feature.getProperty('timespan').begin);
+      var end = new Date(event.feature.getProperty('timespan').end);
+      var timeString = 'From ' + begin.toUTCString() + ' to ' + end.toUTCString();
+      infowindow.setContent("<div class='infoPopUp'><span>"+ heading+ "</span><span>" + timeString + "</span></div>");
+      infowindow.setPosition(event.feature.getGeometry().getAt(0))
+      infowindow.open(map);
     });
   });
 
