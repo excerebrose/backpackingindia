@@ -1,6 +1,6 @@
-# HTML5 and SCSS boilerplate
+# India Location History '17
 
-India Map 
+deployed on https://backpackingindia.herokuapp.com/
 
 ``` npm i ``` to install dependencies
 
